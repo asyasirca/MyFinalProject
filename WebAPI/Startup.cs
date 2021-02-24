@@ -33,8 +33,8 @@ namespace WebAPI
                 //AOP
                 //Autofac,Ninject,CastleWindsor,StructorNap,LightInject
             
-            services.AddSingleton<IProductService, ProductManager>();
-            services.AddSingleton<IProductDal, EfProductDal>();
+            //services.AddSingleton<IProductService, ProductManager>();
+            //services.AddSingleton<IProductDal, EfProductDal>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
