@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
@@ -18,25 +19,27 @@ using System.Text;
 
 namespace Business.Concrete
 {
-      public class ProductManager : IProductService
+    public class ProductManager : IProductService
     {
         IProductDal _productDal;
         ICategoryService _categoryService;
 
-        public ProductManager(IProductDal productDal,ICategoryService categoryService)
+        public ProductManager(IProductDal productDal, ICategoryService categoryService)
         {
             _productDal = productDal;
             _categoryService = categoryService;
         }
 
-        //Claim:iddia etmek.kullanııcların aşağıdaki claimlerden birine sahip olması lazım
-        //[SecuredOperation("product.add")]
+        //00.25 Dersteyiz
+        //Claim
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
+
             //Aynı isimde ürün eklenemez
             //Eğer mevcut kategori sayısı 15'i geçtiyse sisteme yeni ürün eklenemez. ve 
-            IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName), 
+            IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName),
                 CheckIfProductCountOfCategoryCorrect(product.CategoryId), CheckIfCategoryLimitExceded());
 
             if (result != null)
@@ -49,7 +52,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductAdded);
 
 
-           
+
+            //23:10 Dersteyiz
         }
 
 
@@ -57,7 +61,7 @@ namespace Business.Concrete
         {
             if (DateTime.Now.Hour == 1)
             {
-                return new ErrorResult<List<Product>>(Messages.MaintenanceTime);
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
 
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
@@ -82,7 +86,7 @@ namespace Business.Concrete
         {
             if (DateTime.Now.Hour == 23)
             {
-                return new ErrorResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
+                return new ErrorDataResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
             }
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
@@ -122,7 +126,7 @@ namespace Business.Concrete
         private IResult CheckIfCategoryLimitExceded()
         {
             var result = _categoryService.GetAll();
-            if (result.Data.Count>15)
+            if (result.Data.Count > 15)
             {
                 return new ErrorResult(Messages.CategoryLimitExceded);
             }

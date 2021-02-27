@@ -11,15 +11,17 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //Data Transformation Object
             ProductTest();
-            //Data Transformation Object:Dto:taşıyacağımız objeler
-            //IoC
+            //IoC 
             //CategoryTest();
+        }
 
+        private static void CategoryTest()
+        {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             foreach (var category in categoryManager.GetAll().Data)
-            { 
-
+            {
                 Console.WriteLine(category.CategoryName);
             }
         }
@@ -42,8 +44,8 @@ namespace ConsoleUI
             {
                 Console.WriteLine(result.Message);
             }
+
+
         }
-            
-        
     }
 }
