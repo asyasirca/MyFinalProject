@@ -29,6 +29,8 @@ namespace Business.Concrete
             _categoryService = categoryService;
         }
 
+        //Claim:iddia etmek.kullanııcların aşağıdaki claimlerden birine sahip olması lazım
+        //[SecuredOperation("product.add")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
