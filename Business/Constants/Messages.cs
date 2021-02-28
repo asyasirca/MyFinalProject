@@ -23,10 +23,10 @@ namespace Business.Constants
         public static string AuthorizationDenied = "Yetkiniz yok";
         public static string ProductNameAlreadyExists = "Ürün ismi zaten mevcut";
 
-        public static string ProductCountOfCategoryError { get; internal set; }
-        public static string CategoryLimitExceded { get; internal set; }
-        public static string ProductsListed { get; internal set; }
-        public static string MaintenanceTime { get; internal set; }
+        public static string ProductCountOfCategoryError = "Bir kategoride en fazla 10 ürün olabilir";
+        public static string CategoryLimitExceded = "Kategori limiti aşıldığı için yeni ürün eklenemiyor";
+        public static string ProductsListed = "Ürünler listelendi";
+        public static string MaintenanceTime = "Sistem bakımda";
 
         //public'ler büyük harfle kullanılır..ProductAdded gibi
     }
