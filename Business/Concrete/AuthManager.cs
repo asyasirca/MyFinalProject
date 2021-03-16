@@ -28,9 +28,9 @@ namespace Business.Concrete
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
             var user = new User
             {
-                Email = userForRegisterDto.Email,
-                FirstName = userForRegisterDto.FirstName,
-                LastName = userForRegisterDto.LastName,
+                Email = userForRegisterDto.UserEmail,
+                FirstName = userForRegisterDto.UserFirstName,
+                LastName = userForRegisterDto.UserLastName,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 Status = true
@@ -41,7 +41,7 @@ namespace Business.Concrete
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = _userService.GetByMail(userForLoginDto.Email);
+            var userToCheck = _userService.GetByMail(userForLoginDto.UserEmail);
             if (userToCheck == null)
             {
                 return new ErrorDataResult<User>("Kullanıcı bulunamadı");

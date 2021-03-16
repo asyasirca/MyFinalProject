@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Cashing;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -30,7 +31,6 @@ namespace Business.Concrete
             _categoryService = categoryService;
         }
 
-        //00.25 Dersteyiz
         //Claim
         [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
@@ -59,7 +59,7 @@ namespace Business.Concrete
         //[CacheAspect]//key,value
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour == 1)
+            if (DateTime.Now.Hour ==23)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
@@ -86,7 +86,7 @@ namespace Business.Concrete
 
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
         {
-            if (DateTime.Now.Hour == 23)
+            if (DateTime.Now.Hour == 3)
             {
                 return new ErrorDataResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
             }
@@ -152,3 +152,4 @@ namespace Business.Concrete
 
         }
     }
+}
