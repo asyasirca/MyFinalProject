@@ -32,7 +32,7 @@ namespace Business.Concrete
         }
 
         //Claim
-        [SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
@@ -59,7 +59,7 @@ namespace Business.Concrete
         //[CacheAspect]//key,value
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour ==23)
+            if (DateTime.Now.Hour == 2)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
